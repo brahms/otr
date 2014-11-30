@@ -1,0 +1,9 @@
+package serialization;
+
+message DiffieExchange{
+    required bytes diffie = 1;
+}
+message TextMessage {
+    required bytes encrypted = 1;
+    required bytes diffie = 2;
+}
