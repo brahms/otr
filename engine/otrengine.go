@@ -113,7 +113,7 @@ func (this *OtrEngine) Run() {
 				unencrypted := string(utils.AesDecrypt(sessionKey, textMessage.Encrypted))
 				theMsg := string(unencrypted)
 
-				log.Info("%v received %v", this.Name, theMsg)
+				log.Info("%v received '%v'", this.Name, theMsg)
 				this.ReceiveChannel <- theMsg
 				theirPublic = new(big.Int).SetBytes(textMessage.Diffie)
 
