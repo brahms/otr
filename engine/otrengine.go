@@ -3,15 +3,9 @@ package engine
 import (
 	"brahms/otr/serialization"
 	"brahms/otr/utils"
-	// "bytes"
-	// "crypto/rsa"
-	// "encoding/base64"
 	"encoding/binary"
-	// "encoding/hex"
-	// "github.com/golang/protobuf/proto"
 	"github.com/op/go-logging"
 	"math/big"
-	// "strconv"
 )
 
 func init() {
@@ -103,10 +97,11 @@ func (this *OtrEngine) Run() {
 				utils.UnmarshalProto(msg, diffieExchange)
 				theirPublic = new(big.Int).SetBytes(diffieExchange.Diffie)
 
-				this.phase = DIFFIE_FINISHED
-			case DIFFIE_FINISHED:
 				ourSecret = utils.DiffieSecret(mySecret, theirPublic)
 				sessionKey = generateSessionKey(ourSecret)
+
+				this.phase = DIFFIE_FINISHED
+			case DIFFIE_FINISHED:
 
 				textMessage := &serialization.TextMessage{}
 				utils.UnmarshalProto(msg, textMessage)
